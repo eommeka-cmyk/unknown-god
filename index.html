@@ -1,0 +1,193 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>無名之神 — 命書</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;background:#0a0908;color:#ddd2c2;font-family:Georgia,"Noto Serif KR",serif}
+.page{max-width:680px;margin:auto;padding:42px 22px 80px}
+.center{text-align:center}
+.kicker{font-size:11px;letter-spacing:5px;color:#9d8054;margin-bottom:28px}
+h1{font-size:40px;font-weight:400;line-height:1.35;margin:0 0 18px}
+h1 small{display:block;font-size:15px;color:#a98b5c;letter-spacing:5px;margin-bottom:10px}
+.lead{color:#92887a;font-size:14px;line-height:2}
+.story{border-top:1px solid #302820;border-bottom:1px solid #302820;margin:38px 0;padding:28px 15px;line-height:2.1;text-align:center;font-size:14px}
+.story em{color:#c4a575;font-style:normal}
+.btn{appearance:none;width:100%;padding:18px;border:1px solid #a38252;background:#a38252;color:#100d09;font:inherit;font-size:14px;letter-spacing:4px;cursor:pointer}
+.btn:active{transform:translateY(1px)}
+.btn.secondary{background:transparent;color:#9d8054;border-color:#4b3c2c}
+.note{text-align:center;color:#514a42;font-size:10px;line-height:1.8;margin-top:14px}
+.screen{display:none}
+.screen.active{display:block}
+.formbox{margin-top:40px;border:1px solid #302820;padding:28px;background:#100e0c}
+.step{font-size:10px;letter-spacing:3px;color:#a98b5c;margin-bottom:25px}
+label{display:block;font-size:12px;color:#82786c;margin:20px 0 8px}
+input{width:100%;border:0;border-bottom:1px solid #55483a;background:#090807;color:#e8dece;padding:12px 2px;font:inherit;font-size:18px;outline:none}
+input:focus{border-bottom-color:#b09260}
+.hint{font-size:10px;color:#5f574e;margin-top:8px}
+.result{margin-top:35px}
+.quote{border:1px solid #302820;background:#100e0c;padding:28px 18px;margin:28px 0;text-align:center;font-size:20px;line-height:1.9}
+.block{border-top:1px solid #302820;padding:23px 5px}
+.block h3{font-size:11px;font-weight:400;letter-spacing:3px;color:#a98b5c;margin:0 0 12px}
+.block p{font-size:14px;line-height:2;color:#c4b9aa;margin:0}
+.error{color:#b96d5f;font-size:12px;margin-top:12px;display:none}
+</style>
+</head>
+<body>
+
+<div class="page">
+
+<!-- 1 -->
+<section id="home" class="screen active">
+<div class="center">
+<div class="kicker">古代 · 命書 · 無名之神</div>
+<h1><small>이름 없는 신</small>命을 읽는 자</h1>
+<p class="lead">중국 남부의 오래된 기록에는<br>사람의 이름과 태어난 때만으로 운명을 읽었다는<br>정체불명의 신에 대한 이야기가 남아 있다.</p>
+</div>
+
+<div class="story">
+《남방이문록》에 기록된 짧은 문장.<br><br>
+그는 얼굴을 보지 않았다.<br>
+<strong>오직 이름과 태어난 때를 보았다.</strong><br><br>
+왕도, 장군도, 상인도 그 앞에서는 먼저 이름을 바쳤다.<br>
+그리고 그는 언제나 같은 말을 했다고 한다.<br><br>
+<em>“네가 듣고 싶은 말은 하지 않는다.”</em>
+</div>
+
+<button id="enterBtn" class="btn" type="button">命을 바친다</button>
+<div class="note">창작 세계관을 바탕으로 한 오락용 운명 리딩입니다.</div>
+</section>
+
+<!-- 2 -->
+<section id="form" class="screen">
+<div class="center">
+<div class="kicker">第一封印 · 姓名</div>
+<h1 style="font-size:30px"><small>첫 번째 봉인</small>이름을 바치십시오.</h1>
+<p class="lead">신은 소리보다 글자를 먼저 본다고 전해진다.<br>가능하다면 이름을 한자로 적으십시오.</p>
+</div>
+
+<div class="formbox">
+<div class="step">01 · 姓名</div>
+<label for="name">성명</label>
+<input id="name" type="text" placeholder="예: 金成龍" autocomplete="off">
+<div class="hint">한자를 모르면 한글 이름도 입력할 수 있습니다.</div>
+
+<label for="birth">생년월일</label>
+<input id="birth" type="date">
+
+<label for="hour">태어난 시각</label>
+<input id="hour" type="number" min="0" max="23" placeholder="0–23시 · 모르면 비워두십시오">
+
+<div id="error" class="error">이름과 생년월일을 먼저 바치십시오.</div>
+<br>
+<button id="readBtn" class="btn" type="button">기록을 열어본다</button>
+</div>
+</section>
+
+<!-- 3 -->
+<section id="result" class="screen">
+<div class="center">
+<div class="kicker">禁書 · 閱讀完了</div>
+<h1 style="font-size:29px"><small>판독 완료</small><span id="resultName"></span></h1>
+<p class="lead">당신의 이름이 기록되었다.</p>
+</div>
+
+<div class="result">
+<div id="quote" class="quote"></div>
+
+<div class="block"><h3>名 · 이름의 흔적</h3><p id="nameResult"></p></div>
+<div class="block"><h3>命 · 팔자의 기운</h3><p id="birthResult"></p></div>
+<div class="block"><h3>神 · 신이 먼저 본 것</h3><p id="godResult"></p></div>
+<div class="block"><h3>路 · 운명의 흐름</h3><p id="flowResult"></p></div>
+<div class="block"><h3>判 · 마지막 판정</h3><p id="finalResult"></p></div>
+
+<button id="restartBtn" class="btn secondary" type="button">기록을 봉인한다</button>
+</div>
+<div class="note">이 결과는 창작 세계관 기반의 오락용 리딩입니다.</div>
+</section>
+
+</div>
+
+<script>
+(function(){
+  function $(id){ return document.getElementById(id); }
+
+  function show(id){
+    document.querySelectorAll(".screen").forEach(function(el){el.classList.remove("active");});
+    $(id).classList.add("active");
+    window.scrollTo(0,0);
+  }
+
+  $("enterBtn").addEventListener("click",function(){
+    show("form");
+  });
+
+  $("readBtn").addEventListener("click",function(){
+    var name=$("name").value.trim();
+    var birth=$("birth").value;
+    var hour=$("hour").value.trim();
+
+    if(!name || !birth){
+      $("error").style.display="block";
+      return;
+    }
+    $("error").style.display="none";
+
+    var seed=0;
+    var source=name+"|"+birth+"|"+hour;
+    for(var i=0;i<source.length;i++) seed=((seed<<5)-seed+source.charCodeAt(i))|0;
+    seed=Math.abs(seed);
+
+    var nameTypes=[
+      ["火","당신의 이름에는 불의 흔적이 강하다. 시작한 일을 끝까지 밀어붙이는 힘이 있지만, 한번 붙잡은 것을 놓는 데에는 유난히 인색한 기운도 함께 보인다."],
+      ["水","당신의 이름에는 물의 흔적이 강하다. 겉으로는 조용하지만 사람과 상황을 오래 관찰하고, 결정적인 순간에는 이미 답을 알고 있었던 듯 움직이는 기운이다."],
+      ["金","당신의 이름에는 쇠의 흔적이 강하다. 사람과 일 사이에 선을 긋는 힘이 있다. 한번 아니다 싶으면 돌아서지만, 그만큼 혼자 감당하는 시간이 길어진다."],
+      ["木","당신의 이름에는 나무의 흔적이 강하다. 당장의 결과보다 시간이 쌓인 뒤 차이가 커지는 기운이다. 늦어 보여도 한번 자리를 잡으면 오래 간다."]
+    ];
+
+    var quotes=[
+      "“당신은 생각보다 오래 버티는 사람이다.”",
+      "“문제는 기회가 없는 것이 아니다. 너무 많은 것을 혼자 결정한다는 것이다.”",
+      "“당신의 운은 조용히 바뀐다. 그래서 바뀐 뒤에야 알아차린다.”",
+      "“당신이 잃어버린 것 중 일부는, 사실 버려야 했던 것이다.”"
+    ];
+
+    var flows=[
+      "당신의 운은 사람보다 자리를 바꿀 때 크게 움직인다. 환경 하나를 바꾸는 것이 여러 사람을 바꾸는 것보다 강하다.",
+      "돈보다 선택권을 얻는 일이 중요한 흐름이다. 억지로 붙잡은 것은 오래 남지 않고, 스스로 선택한 것은 늦어도 돌아온다.",
+      "가까운 사람 하나가 운의 방향을 크게 흔드는 시기가 있다. 누구와 함께하느냐가 생각보다 중요한 구조다.",
+      "늦게 알아차린 것이 오히려 오래 간다. 빠른 결정 하나보다 뒤늦은 수정 하나가 더 큰 차이를 만든다."
+    ];
+
+    var type=nameTypes[seed%nameTypes.length];
+    $("resultName").textContent=name+" · 命書";
+    $("quote").textContent=quotes[seed%quotes.length];
+    $("nameResult").textContent=type[1];
+
+    var year=parseInt(birth.substring(0,4),10);
+    var age=new Date().getFullYear()-year;
+    $("birthResult").textContent=birth+"에 태어난 당신에게서는 "+type[0]+"의 기운이 강하게 읽힌다. "+(age>=36?"이미 한 번 크게 방향을 바꾼 흔적이 있다.":"아직 운의 방향을 정하는 시기가 남아 있다.");
+
+    $("godResult").textContent=hour
+      ? "출생 시각까지 확인하자 판정이 한 겹 더 선명해졌다. "+(parseInt(hour,10)%2===0?"겉으로 드러난 것보다 속에서 결정을 오래 끌고 가는 기질":"결정한 순간 주변을 빠르게 움직이는 기질")+"이 강하다."
+      : "출생 시각이 비어 있다. 마지막 한 조각은 아직 읽지 않았다. 신은 빈칸도 기록한다고 한다.";
+
+    $("flowResult").textContent=flows[seed%flows.length];
+
+    $("finalResult").textContent="좋은 운과 나쁜 운을 가르는 것은 하나가 아니다. 당신에게는 ‘무엇을 얻느냐’보다 ‘무엇을 더 이상 붙잡지 않느냐’가 중요한 순간이 있다. 이것은 미래를 확정하는 예언이 아니라, 오래된 신의 세계관을 빌려 자신을 돌아보게 하는 창작형 리딩이다.";
+
+    show("result");
+  });
+
+  $("restartBtn").addEventListener("click",function(){
+    $("name").value="";
+    $("birth").value="";
+    $("hour").value="";
+    show("home");
+  });
+})();
+</script>
+</body>
+</html>
